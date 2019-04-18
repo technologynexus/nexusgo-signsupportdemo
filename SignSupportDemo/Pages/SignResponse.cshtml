@@ -1,0 +1,14 @@
+﻿@page
+@model SignSupportDemo.Pages.SignResponseModel
+@{
+    ViewData["Title"] = "Processing sign response...";
+}
+
+@if (Model.SignSupportError != null)
+{
+    Html.RenderPartial("SignSupportError");
+}
+else if (Model.GeneralError != null)
+{
+    Html.RenderPartial("GeneralError");
+}

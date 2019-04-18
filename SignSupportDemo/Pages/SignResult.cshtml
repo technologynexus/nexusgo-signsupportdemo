@@ -1,0 +1,73 @@
+﻿@page
+@model SignSupportDemo.Pages.SignResultModel
+@{
+    ViewData["Title"] = "Sign Result";
+}
+
+@if (Model.GeneralError != null)
+{
+    Html.RenderPartial("GeneralError");
+}
+else if (@Model.SignStorageObject != null)
+{
+
+    @section scripts {
+        <script>
+            $('.panel-collapse').on('show.bs.collapse', function () {
+                $(this).siblings('.panel-heading').addClass('active');
+            });
+            $('.panel-collapse').on('hide.bs.collapse', function () {
+                $(this).siblings('.panel-heading').removeClass('active');
+            });
+        </script>
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Sign result</h3>
+            <p>Signed documents</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            @{
+                var counter = 0;
+                var Id = @Model.SignStorageObject.Id;
+            }
+            @foreach (var signedDocument in @Model.SignStorageObject.Documents)
+            {
+                counter++;
+                var FileName = @signedDocument.FileName;
+                var collapseId = "collapse" + counter;
+                var headingId = "heading" + counter;
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="panel-download" href="Download?id=@Id&file=@FileName" target="_blank"></a>
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@collapseId">
+                                @FileName
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="@collapseId" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="text-info">
+                                <p>
+                                    Original document size:<br />
+                                    @signedDocument.OriginalDocument.Length bytes.
+                                </p>
+                                <p>
+                                    Signed document size:<br />
+                                    @signedDocument.SignedDocument.Length bytes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <h6>Note: sign-result and its documents will be deleted from demo-database at @Model.SignStorageObject.Expires</h6>
+        </div>
+    </div>
+
+}

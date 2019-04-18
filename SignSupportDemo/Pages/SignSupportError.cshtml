@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Sign support error";
+}
+<h2>Sign support error</h2>
+<h3>@Model.SignSupportError.Error</h3>
+<p class="monospace">@Model.SignSupportError.Message</p>
+<div class="row">
+    <div class="col-md-4">
+        <h3>Details</h3>
+        <p><strong>Timestamp</strong></p>
+        @{
+            var doubleTime = Convert.ToDouble(@Model.SignSupportError.Timestamp);
+            var time = new DateTime(1970, 1, 1).AddMilliseconds(doubleTime);
+            var timeText = time.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+            <p class="monospace">@timeText</p>
+        }
+        <p><strong>Status</strong></p>
+        <p class="monospace">@Model.SignSupportError.Status</p>
+        <p><strong>Path</strong></p>
+        <p class="monospace">@Model.SignSupportError.Path</p>
+        @if (@Model.SignSupportError.Exception != null)
+        {
+            <p><strong>Exception</strong></p>
+            <p class="monospace">@Model.SignSupportError.Exception</p>
+        }
+    </div>
+</div>

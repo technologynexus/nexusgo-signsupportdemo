@@ -1,0 +1,73 @@
+﻿@page
+@model SignSupportDemo.Pages.SignModel
+@{
+    ViewData["Title"] = "Sign documents";
+}
+
+@if (Model.SignSupportError != null)
+{
+    Html.RenderPartial("SignSupportError");
+}
+else if (Model.GeneralError != null)
+{
+    Html.RenderPartial("GeneralError");
+}
+else
+{
+    @section Scripts {
+        <script>
+            $(function () {
+                'use strict';
+
+                $('.panel-collapse').on('show.bs.collapse', function () {
+                    $(this).siblings('.panel-heading').addClass('active');
+                });
+                $('.panel-collapse').on('hide.bs.collapse', function () {
+                    $(this).siblings('.panel-heading').removeClass('active');
+                });
+
+
+                if ($("#redirectform").get(0) != null) {
+                    $('.nexus-overlay').removeClass('display-none');
+                } else {
+                    $('.nexus-overlay').addClass('display-none');
+                }
+
+                $('.accordion').css('visibility', 'visible');
+
+                $('.toggle').click(function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    if ($this.next().hasClass('show')) {
+                        $this.next().removeClass('show');
+                    } else {
+                        $this.parent().parent().find('li .inner').removeClass('show');
+                        $this.next().toggleClass('show');
+                    }
+                });
+
+                $("#signform").click(function (event) {
+                    $('.nexus-overlay').removeClass('display-none');
+                });
+            });
+        </script>
+    }
+
+    <div class="nexus-overlay">
+        <div class="nexus-spinner"></div>
+    </div>
+
+    <h3>Sign documents</h3>
+    <p>
+        This demonstrates how to sign documents using the
+        <a href="https://hub.docker.com/r/technologynexus/sign-support">Sign support</a> with
+        <a href="https://doc.nexusgroup.com/display/PUB/Get+started+with+Nexus+GO+Federated+Signing">Nexus GO Federated Signing</a>
+    </p>
+
+    Html.RenderPartial("SignForm");
+
+    if (Model.SignRequestGenerationResponse != null)
+    {
+        Html.RenderPartial("AutoSubmitSignForm");
+    }
+}

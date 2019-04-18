@@ -1,0 +1,10 @@
+﻿@page
+@model SignSupportDemo.Pages.DownloadModel
+@{
+    ViewData["Title"] = "Download";
+}
+
+@if (Model.GeneralError != null)
+{
+    Html.RenderPartial("GeneralError");
+}

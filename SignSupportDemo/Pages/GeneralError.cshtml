@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "General error";
+}
+@if (Model.GeneralError != null)
+{
+    <h2>Error!</h2>
+    <h3>@Model.GeneralError.Message</h3>
+    @Model.GeneralError.DetailedMessage
+}
