@@ -9,72 +9,78 @@ new SelectListItem { Text = "Markdown", Value="text/markdown" }
 }
 
 <div class="row">
-    <div class="col-md-5">
-        <form method="post" enctype="multipart/form-data" accept-charset="utf-8">
-            <div class="form-group">
-                <input asp-for="SignFormData.Documents" type="file" class="form-control" accept="application/pdf,application/xml" multiple style="height:auto" />
+    <form method="post" enctype="multipart/form-data" accept-charset="utf-8">
+        <div class="form-group">
+            <div class="file-upload-limiter">
+                <div class="file-loading">
+                    <input asp-for="SignFormData.Documents" id="SignFormData_Documents" type="file" class="form-control" accept="application/pdf,application/xml" multiple style="height:auto" />
+                </div>
                 <span asp-validation-for="SignFormData.Documents" class="text-danger"></span>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Advanced</a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label asp-for="SignFormData.Request.Signer" class="control-label"></label>
-                            <input asp-for="SignFormData.Request.Signer" type="text" class="form-control" />
-                            <span asp-validation-for="SignFormData.Request.Signer" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="SignFormData.Request.Idp" class="control-label"></label>
-                            <input asp-for="SignFormData.Request.Idp" type="text" class="form-control" />
-                            <span asp-validation-for="SignFormData.Request.Idp" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="SignFormData.Request.Loa" class="control-label"></label>
-                            <input asp-for="SignFormData.Request.Loa" type="text" class="form-control" />
-                        </div>
-                        <div class="panel-group" id="accordionInner">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionInner" href="#collapseThree">Sign Message</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <div class="inner" style="">
-                                            <div class="form-group">
-                                                <label asp-for="SignFormData.Request.SignMessage.Message" class="control-label"></label>
-                                                <textarea asp-for="SignFormData.Request.SignMessage.Message" class="form-control"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label asp-for="SignFormData.Request.SignMessage.MessageFormat" class="control-label"></label>
-                                                @Html.DropDownListFor(model => model.SignFormData.Request.SignMessage.MessageFormat, messageFormats, new { @class = "form-control" })
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-3">
-                                                    <label asp-for="SignFormData.Request.SignMessage.MustShow"></label>
-                                                    <input asp-for="SignFormData.Request.SignMessage.MustShow" type="checkbox" />
+            <div class="col-md-5">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Advanced</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label asp-for="SignFormData.Request.Signer" class="control-label"></label>
+                                <input asp-for="SignFormData.Request.Signer" type="text" class="form-control" />
+                                <span asp-validation-for="SignFormData.Request.Signer" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SignFormData.Request.Idp" class="control-label"></label>
+                                <input asp-for="SignFormData.Request.Idp" type="text" class="form-control" />
+                                <span asp-validation-for="SignFormData.Request.Idp" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SignFormData.Request.Loa" class="control-label"></label>
+                                <input asp-for="SignFormData.Request.Loa" type="text" class="form-control" />
+                            </div>
+                            <div class="panel-group" id="accordionInner">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionInner" href="#collapseThree">Sign Message</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="inner" style="">
+                                                <div class="form-group">
+                                                    <label asp-for="SignFormData.Request.SignMessage.Message" class="control-label"></label>
+                                                    <textarea asp-for="SignFormData.Request.SignMessage.Message" class="form-control"></textarea>
                                                 </div>
-                                                <div class="form-group col-md-3">
-                                                    <label asp-for="SignFormData.Request.SignMessage.DoEncrypt"></label>
-                                                    <input asp-for="SignFormData.Request.SignMessage.DoEncrypt" type="checkbox" />
+                                                <div class="form-group">
+                                                    <label asp-for="SignFormData.Request.SignMessage.MessageFormat" class="control-label"></label>
+                                                    @Html.DropDownListFor(model => model.SignFormData.Request.SignMessage.MessageFormat, messageFormats, new { @class = "form-control" })
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3">
+                                                        <label asp-for="SignFormData.Request.SignMessage.MustShow"></label>
+                                                        <input asp-for="SignFormData.Request.SignMessage.MustShow" type="checkbox" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label asp-for="SignFormData.Request.SignMessage.DoEncrypt"></label>
+                                                        <input asp-for="SignFormData.Request.SignMessage.DoEncrypt" type="checkbox" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
+                <input id="signform" name="signform" type="submit" value="Sign Documents" class="btn btn-default" />
             </div>
-            <input id="signform" name="signform" type="submit" value="Sign Documents" class="btn btn-default" />
-        </form>
-    </div>
+        </div>
+    </form>
+    
 </div>

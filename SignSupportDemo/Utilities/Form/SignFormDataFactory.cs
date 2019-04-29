@@ -14,7 +14,7 @@ namespace SignSupportDemo.Utilities.Form
                     Signer = "188803099368",
                     SignMessage = new SignMessage
                     {
-                        Message = "<b>You are requested to sign the following:</b><br>Accept purchase agreement",
+                        Message = "<b>You are requested to sign the following:</b><br>\nAccept purchase agreement",
                         MessageFormat = "text/html",
                         MustShow = true,
                         DoEncrypt = false

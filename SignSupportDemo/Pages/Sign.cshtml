@@ -15,9 +15,28 @@ else if (Model.GeneralError != null)
 else
 {
     @section Scripts {
+        <script type="text/javascript" src="@Url.Content("/lib/bootstrap-fileinput/js/fileinput.js")"></script>
         <script>
             $(function () {
                 'use strict';
+
+                $("#SignFormData_Documents").fileinput({
+                    showUpload: false,
+                    dropZoneEnabled: false,
+                    maxFilePreviewSize: 1024,
+                    maxFileSize: 1024,
+                    layoutTemplates: {
+                        main1: "{preview}\n" +
+                            "<div class=\'input-group {class}\'>\n" +
+                            "   <div class=\'input-group-btn\ input-group-prepend'>\n" +
+                            "       {browse}\n" +
+                            "       {upload}\n" +
+                            "       {remove}\n" +
+                            "   </div>\n" +
+                            "   {caption}\n" +
+                            "</div>"
+                    }
+                });
 
                 $('.panel-collapse').on('show.bs.collapse', function () {
                     $(this).siblings('.panel-heading').addClass('active');

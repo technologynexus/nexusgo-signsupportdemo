@@ -4,7 +4,9 @@ for details on configuring this project to bundle and minify static web assets. 
     display: block;
     padding: 2px;
     color: #555;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 0.85;
     text-decoration: none;
 }
 
@@ -21,8 +23,9 @@ for details on configuring this project to bundle and minify static web assets. 
     transform: rotate(180deg);
 }
 
-.panel-group {
+.panel-default {
     max-width: 640px;
+    margin-bottom: 15px;
 }
 
 .panel-download {
@@ -36,3 +39,4 @@ for details on configuring this project to bundle and minify static web assets. 
     transform: none !important;
     padding-right: 10px; 
 }
+

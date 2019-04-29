@@ -29,45 +29,44 @@ else if (@Model.SignStorageObject != null)
         </div>
     </div>
 
-    <div class="container">
-        <div class="panel-group" id="accordion">
-            @{
-                var counter = 0;
-                var Id = @Model.SignStorageObject.Id;
-            }
-            @foreach (var signedDocument in @Model.SignStorageObject.Documents)
-            {
-                counter++;
-                var FileName = @signedDocument.FileName;
-                var collapseId = "collapse" + counter;
-                var headingId = "heading" + counter;
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="panel-download" href="Download?id=@Id&file=@FileName" target="_blank"></a>
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@collapseId">
-                                @FileName
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="@collapseId" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="text-info">
-                                <p>
-                                    Original document size:<br />
-                                    @signedDocument.OriginalDocument.Length bytes.
-                                </p>
-                                <p>
-                                    Signed document size:<br />
-                                    @signedDocument.SignedDocument.Length bytes.
-                                </p>
-                            </div>
+    <div class="panel-group" id="accordion">
+        @{
+            var counter = 0;
+            var Id = @Model.SignStorageObject.Id;
+        }
+        @foreach (var signedDocument in @Model.SignStorageObject.Documents)
+        {
+            counter++;
+            var FileName = @signedDocument.FileName;
+            var collapseId = "collapse" + counter;
+            var headingId = "heading" + counter;
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="panel-download" href="Download?id=@Id&file=@FileName" target="_blank"></a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@collapseId">
+                            @FileName
+                        </a>
+                    </h4>
+                </div>
+                <div id="@collapseId" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="text-info">
+                            <p>
+                                Original document size:<br />
+                                @signedDocument.OriginalDocument.Length bytes.
+                            </p>
+                            <p>
+                                Signed document size:<br />
+                                @signedDocument.SignedDocument.Length bytes.
+                            </p>
                         </div>
                     </div>
                 </div>
-            }
-            <h6>Note: sign-result and its documents will be deleted from demo-database at @Model.SignStorageObject.Expires</h6>
-        </div>
+            </div>
+        }
+        <h6>Note: sign-result and its documents will be deleted from demo-database at @Model.SignStorageObject.Expires.ToString("yyyy-MM-dd HH\\:mm\\:ss zzz")</h6>
     </div>
+    
 
 }
