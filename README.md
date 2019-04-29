@@ -1,5 +1,8 @@
 # nexusgo-signsupportdemo
 
+## Getting started
+https://doc.nexusgroup.com/display/PUB/Get+started+with+Nexus+GO+Federated+Signing
+
 ## Start Support service Docker container
 ```
 docker run --interactive --volume c:/sign-support/test/files/:/home/docker/additional/:ro \
