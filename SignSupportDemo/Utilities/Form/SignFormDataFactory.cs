@@ -10,14 +10,14 @@ namespace SignSupportDemo.Utilities.Form
             {
                 Request = new SignRequestGenerationRequest
                 {
-                    Idp = "https://test-auth.nexusgroup.com/idp",
-                    Signer = "188803099368",
+                    Idp = "https://dss.nexusville.com/idp",
+                    Signer = "",
                     SignMessage = new SignMessage
                     {
-                        Message = "<b>You are requested to sign the following:</b><br>\nAccept purchase agreement",
+                        Message = "<b>You are requested to sign the following:</b><br>Accept purchase agreement",
                         MessageFormat = "text/html",
                         MustShow = true,
-                        DoEncrypt = false
+                        DoEncrypt = true
                     }
                 }
             };

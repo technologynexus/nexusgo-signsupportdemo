@@ -15,6 +15,7 @@ new SelectListItem { Text = "Markdown", Value="text/markdown" }
                 <div class="file-loading">
                     <input asp-for="SignFormData.Documents" id="SignFormData_Documents" type="file" class="form-control" accept="application/pdf,application/xml" multiple style="height:auto" />
                 </div>
+                <div id="errorBlock" class="help-block"></div>
                 <span asp-validation-for="SignFormData.Documents" class="text-danger"></span>
             </div>
             <div class="col-md-5">
