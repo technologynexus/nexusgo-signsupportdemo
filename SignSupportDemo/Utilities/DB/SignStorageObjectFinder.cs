@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SignSupportDemo.Utilities.Error;
+using System;
 
 namespace SignSupportDemo.Utilities.DB
 {
@@ -6,12 +7,20 @@ namespace SignSupportDemo.Utilities.DB
     {
         public static SignStorageObject Find(string id)
         {
-            SignStorageObject storageObject = SignSupportDatabase.FindById(id);
-            if (storageObject != null)
-            {
-                return storageObject;
+            if (string.IsNullOrEmpty(id)) {
+                throw GetException("Empty id cannot be found in demo-database");
             }
-            throw new Exception("id argument invalid");
+            SignStorageObject StorageObject = SignSupportDatabase.FindById(id);
+            if (StorageObject != null)
+            {
+                return StorageObject;
+            }
+            throw GetException("Sign request with id " + id + " not found in demo-database");
+        }
+
+        private static Exception GetException(string detailedMessage)
+        {
+            return ErrorHelper.GetException("Invalid id argument!", detailedMessage);
         }
     }
 }
