@@ -34,7 +34,7 @@ namespace SignSupportDemo.Pages
             try
             {
                 SignStorageObject SignStorageObject = SignStorageObjectFinder.Find(SignResponseData.RelayState);
-                SignCompletionRequest SignCompletionRequest = GetSignCompletionRequest(SignResponseData, SignStorageObject);
+                SignCompletionRequest SignCompletionRequest = CreateSignCompletionRequest(SignStorageObject);
                 string RequestJson = Encoding.UTF8.GetString(JsonUtil.JsonSerialize<SignCompletionRequest>(SignCompletionRequest));
 
                 // Perform complete-signing request for each document
@@ -43,11 +43,10 @@ namespace SignSupportDemo.Pages
                     byte[] OriginalDocument = DocumentStorageObject.OriginalDocument;
                     MultipartUploadMedia UploadMedia = new MultipartUploadMedia(OriginalDocument, "document", DocumentStorageObject.FileName);
                     byte[] SignedDocumentBytes = await CompleteDocumentSignatureAsync(UploadMedia, RequestJson);
-                    Console.WriteLine("File {0} had SignedDocumentBytes length {1}", DocumentStorageObject.FileName, SignedDocumentBytes.Length);
 
-                    // Store signed document in database
                     DocumentStorageObject.SignedDocument = SignedDocumentBytes;
                 }
+                // Store signed documents in database
                 SignSupportDatabase.Upsert(SignStorageObject);
                 return Redirect("~/SignResult?id=" + SignResponseData.RelayState);
             }
@@ -79,12 +78,12 @@ namespace SignSupportDemo.Pages
             throw new Exception("Invalid response!", new Exception("Got invalid response from URL " + Url));
         }
 
-        private SignCompletionRequest GetSignCompletionRequest(SignResponseData signResponseData, SignStorageObject signStorageObject)
+        private SignCompletionRequest CreateSignCompletionRequest(SignStorageObject signStorageObject)
         {
             return new SignCompletionRequest
             {
-                EidSignResponse = signResponseData.EidSignResponse,
-                RelayState = signResponseData.RelayState,
+                EidSignResponse = SignResponseData.EidSignResponse,
+                RelayState = SignResponseData.RelayState,
                 TbsDatas = signStorageObject.TbsDatas
             };
         }

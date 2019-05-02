@@ -21,8 +21,9 @@ else
                 'use strict';
 
                 $("#SignFormData_Documents").fileinput({
-                    showUpload: false,
+                    showPreview: false,
                     dropZoneEnabled: false,
+                    elErrorContainer: "#errorBlock",
                     maxFilePreviewSize: 1024,
                     maxFileSize: 1024,
                     layoutTemplates: {
@@ -30,7 +31,6 @@ else
                             "<div class=\'input-group {class}\'>\n" +
                             "   <div class=\'input-group-btn\ input-group-prepend'>\n" +
                             "       {browse}\n" +
-                            "       {upload}\n" +
                             "       {remove}\n" +
                             "   </div>\n" +
                             "   {caption}\n" +
