@@ -24,6 +24,8 @@ namespace SignSupportDemo.Pages
 
         public SignSupportError SignSupportError { get; set; }
 
+        public IActionResult OnGet() => NotFound();
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -75,7 +77,7 @@ namespace SignSupportDemo.Pages
             {
                 return ResponseBody;
             }
-            throw new Exception("Invalid response!", new Exception("Got invalid response from URL " + Url));
+            throw ErrorHelper.GetException("Invalid response!", "Got invalid response from URL " + Url);
         }
 
         private SignCompletionRequest CreateSignCompletionRequest(SignStorageObject signStorageObject)

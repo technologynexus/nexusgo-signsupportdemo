@@ -75,8 +75,21 @@ namespace SignSupportDemo.Pages
             String requestJson = Encoding.UTF8.GetString(JsonUtil.JsonSerialize<SignRequestGenerationRequest>(SignFormData.Request));
             StringContent requestContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
             string url = Startup.Configuration["SignSupport:Url"] + "/generator/signrequest";
-            HttpResponseMessage HttpResponse = await new HttpClient().PostAsync(url, requestContent);
+            HttpClient httpClient = GetSignRequestHttpClient();
+            HttpResponseMessage HttpResponse = await httpClient.PostAsync(url, requestContent);
             return await TryParseResponseAsync<T>(HttpResponse);
+        }
+
+        private HttpClient GetSignRequestHttpClient()
+        {
+            HttpClient httpClient = new HttpClient();
+            bool UseOrigin = Convert.ToBoolean(Startup.Configuration["SignSupport:UseOrigin"]);
+            if (UseOrigin && Request.IsHttps)
+            {
+                string origin = "https://" + Request.Host;
+                httpClient.DefaultRequestHeaders.Add("Origin", origin);
+            }
+            return httpClient;
         }
 
         private async Task<T> TryParseResponseAsync<T>(HttpResponseMessage response)

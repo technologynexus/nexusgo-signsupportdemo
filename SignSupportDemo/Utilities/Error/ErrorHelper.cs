@@ -63,5 +63,11 @@ namespace SignSupportDemo.Utilities.Error
                     + " from " + response.RequestMessage.RequestUri.OriginalString, e);
             }
         }
+
+        internal static Exception GetException(string message, string detailedMessage)
+        {
+            return new Exception(message, new Exception(detailedMessage));
+        }
+       
     }
 }

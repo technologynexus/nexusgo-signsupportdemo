@@ -38,7 +38,7 @@ namespace SignSupportDemo.Pages
                     return documentStorageObject;
                 }
             }
-            throw new Exception("Download failed, file argument invalid!");
+            throw ErrorHelper.GetException("Download failed", "file argument invalid!");
         }
     }
 }
