@@ -1,7 +1,10 @@
 ﻿@model SignSupportDemo.Pages.SignModel
 
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
 <body onload='document.redirectform.submit();'>
-    <form id='redirectform' name='redirectform' action='https://dss-dev.go.nexusgroup.com/54b35d04-d416-453f-956c-48da76544eaa/sign' method='post' accept-charset='UTF-8'>
+    <form id='redirectform' name='redirectform' action='@Configuration["SignService:SigningUrl"]' method='post' accept-charset='UTF-8'>
         <div>
             <input type='hidden' name='Binding' value='POST/XML/1.0'>
             <input type='hidden' name='EidSignRequest' value='@Model.SignRequestGenerationResponse.SignRequest' />
